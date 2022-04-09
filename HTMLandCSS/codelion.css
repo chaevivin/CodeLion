@@ -36,7 +36,7 @@ h2 {
 
 .about-me-text {
     font-size: 10px;
-    line-height: 16px;
+    line-height: 16px;  // 줄간격
 }
 
 .mainbox {
@@ -46,11 +46,11 @@ h2 {
     margin-right: auto;
     margin-left: auto;
     border: 1px solid #ebebeb;
-    box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);  // 박스 그림자 (앞에 4개 숫자는 위,아래,좌,우 그림자 정도)
 }
 
 .title-box {
-    text-align: right;
+    text-align: right;  // 오른쪽 정렬
 }
 
 section {
@@ -58,21 +58,21 @@ section {
 }
 
 .float-wrap {
-    overflow: hidden;
+    overflow: hidden;  // 넘치는 내용은 잘라서 
 }
 
 .title-text {
     font-size: 11px;
     font-weight: bold;
     color:#282828;
-    float: left;
+    float: left;  // 왼쪽으로 띄움
 }
 
 .year-text {
     font-size: 11px;
     font-weight: bold;
     color: #282828;
-    float: right;
+    float: right;  // 오른쪽으로 띄움
 }
 
 .desc-text {
@@ -95,7 +95,7 @@ section {
 }
 
 footer {
-    text-align: center;
+    text-align: center;  // 텍스트 가운데 정렬
     background-color: #1e1e1e;
     padding: 20px;
     font-size: 12px;
