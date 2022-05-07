@@ -77,9 +77,9 @@ while True:
   print(lunch)
   item = input("음식을 추가해주세요 : ")
   if(item == 'q'):
-  break
+    break
   else:
-  lunch.append(item)
+    lunch.append(item)
 
 print(lunch)
 ```
@@ -97,11 +97,11 @@ print(lunch)
 set_lunch = set(lunch)
 while True:
   print(set_lunch)
-  itme = input("음식을 삭제해주세요. : ")
+  item = input("음식을 삭제해주세요. : ")
   if(item == 'q'):
-  break
-else:
-  set_lunch = set_lunch - set([item])
+    break
+  else:
+    set_lunch = set_lunch - set([item])
 ```
 
 <br>
@@ -139,9 +139,9 @@ while True:
   print(lunch)
   item = input("음식을 추가해주세요 : ")
   if(item == 'q'):
-  break
-else:
-  lunch.append(item)
+    break
+  else:
+    lunch.append(item)
 
 print(lunch)
 
@@ -150,9 +150,9 @@ while True:
   print(set_lunch)
   itme = input("음식을 삭제해주세요. : ")
   if(item == 'q'):
-  break
-else:
-  set_lunch = set_lunch - set([item])
+    break
+  else:
+    set_lunch = set_lunch - set([item])
 
 print(set_lunch, "중에서 선택합니다.")
 
@@ -205,9 +205,9 @@ total_dictionary = {}
 while True:
   question = input("질문을 입력해주세요 : ")
   if(question == 'q'):
-  break
-else:
-  total_dictionary[question] = ""
+    break
+  else:
+    total_dictionary[question] = ""
 
 print(total_dictionary)
 ```
@@ -242,9 +242,9 @@ total_list = []
 while True:
   question = input("질문을 입력해주세요 : ")
   if(question == 'q'):
-  break
-else:
-  total_list.append({"질문" : question, "답변" : ""})
+    break
+  else:
+    total_list.append({"질문" : question, "답변" : ""})
 
 for i in total_list:
   print(i["질문"])
@@ -264,9 +264,9 @@ total_list = []
 while True:
   question = input("질문을 입력해주세요 : ")
   if(question == 'q'):
-  break
-else:
-  total_list.append({"질문" : question, "답변" : ""})
+    break
+  else:
+    total_list.append({"질문" : question, "답변" : ""})
 
 for i in total_list:
   print(i["질문"])
