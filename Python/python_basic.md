@@ -42,7 +42,7 @@ print(random.choice(["피자", "치킨", "햄버거"]))
 import random
 
 for i in range(30):
-print(random.choice(["피자", "치킨", "햄버거"]))
+  print(random.choice(["피자", "치킨", "햄버거"]))
 ```
 
 <br>
@@ -74,12 +74,12 @@ print(lunch)
 lunch = ["된장찌개", "피자", "제육볶음", "짜장면"]
 
 while True:
-print(lunch)
-item = input("음식을 추가해주세요 : ")
-if(item == 'q'):
-break
-else:
-lunch.append(item)
+  print(lunch)
+  item = input("음식을 추가해주세요 : ")
+  if(item == 'q'):
+  break
+  else:
+  lunch.append(item)
 
 print(lunch)
 ```
@@ -96,12 +96,12 @@ print(lunch)
 
 set_lunch = set(lunch)
 while True:
-print(set_lunch)
-itme = input("음식을 삭제해주세요. : ")
-if(item == 'q'):
-break
+  print(set_lunch)
+  itme = input("음식을 삭제해주세요. : ")
+  if(item == 'q'):
+  break
 else:
-set_lunch = set_lunch - set([item])
+  set_lunch = set_lunch - set([item])
 ```
 
 <br>
@@ -119,8 +119,8 @@ set_lunch = set_lunch - set([item])
 print(set_lunch, "중에서 선택합니다.")
 
 for i in range(5, 0, -1):
-print(i)
-time.sleep(1)
+  print(i)
+  time.sleep(1)
 
 print(random.choice(list(set_lunch)))
 ```
@@ -136,29 +136,29 @@ import random
 lunch = ["된장찌개", "피자", "제육볶음", "짜장면"]
 
 while True:
-print(lunch)
-item = input("음식을 추가해주세요 : ")
-if(item == 'q'):
-break
+  print(lunch)
+  item = input("음식을 추가해주세요 : ")
+  if(item == 'q'):
+  break
 else:
-lunch.append(item)
+  lunch.append(item)
 
 print(lunch)
 
 set_lunch = set(lunch)
 while True:
-print(set_lunch)
-itme = input("음식을 삭제해주세요. : ")
-if(item == 'q'):
-break
+  print(set_lunch)
+  itme = input("음식을 삭제해주세요. : ")
+  if(item == 'q'):
+  break
 else:
-set_lunch = set_lunch - set([item])
+  set_lunch = set_lunch - set([item])
 
 print(set_lunch, "중에서 선택합니다.")
 
 for i in range(5, 0, -1):
-print(i)
-time.sleep(1)
+  print(i)
+  time.sleep(1)
 
 print(random.choice(list(set_lunch)))
 ```
@@ -186,8 +186,8 @@ print(random.choice(list(set_lunch)))
 - 형태
   ```python
   def 함수이름():
-  함수가 해야할 내용 1
-  함수가 해야할 내용 2
+    함수가 해야할 내용 1
+    함수가 해야할 내용 2
   ...
   ```
 
@@ -203,11 +203,11 @@ print(random.choice(list(set_lunch)))
 total_dictionary = {}
 
 while True:
-question = input("질문을 입력해주세요 : ")
-if(question == 'q'):
-break
+  question = input("질문을 입력해주세요 : ")
+  if(question == 'q'):
+  break
 else:
-total_dictionary[question] = ""
+  total_dictionary[question] = ""
 
 print(total_dictionary)
 ```
@@ -223,9 +223,9 @@ print(total_dictionary)
 #이어서
 
 for i in total_dictionary:
-print(i)
-answer = input("답변을 입력해주세요 : ")
-total_dictionary[i] = answer
+  print(i)
+  answer = input("답변을 입력해주세요 : ")
+  total_dictionary[i] = answer
 ```
 
 <br>
@@ -240,16 +240,16 @@ total_dictionary[i] = answer
 total_list = []
 
 while True:
-question = input("질문을 입력해주세요 : ")
-if(question == 'q'):
-break
+  question = input("질문을 입력해주세요 : ")
+  if(question == 'q'):
+  break
 else:
-total_list.append({"질문" : question, "답변" : ""})
+  total_list.append({"질문" : question, "답변" : ""})
 
 for i in total_list:
-print(i["질문"])
-answer = input("답변을 입력해주세요 : ")
-i["답변"] = answer
+  print(i["질문"])
+  answer = input("답변을 입력해주세요 : ")
+  i["답변"] = answer
 
 print(total_list)
 ```
@@ -262,16 +262,16 @@ print(total_list)
 total_list = []
 
 while True:
-question = input("질문을 입력해주세요 : ")
-if(question == 'q'):
-break
+  question = input("질문을 입력해주세요 : ")
+  if(question == 'q'):
+  break
 else:
-total_list.append({"질문" : question, "답변" : ""})
+  total_list.append({"질문" : question, "답변" : ""})
 
 for i in total_list:
-print(i["질문"])
-answer = input("답변을 입력해주세요 : ")
-i["답변"] = answer
+  print(i["질문"])
+  answer = input("답변을 입력해주세요 : ")
+  i["답변"] = answer
 
 print(total_list)
 ```
