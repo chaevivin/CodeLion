@@ -26,12 +26,10 @@
 - import random : random 함수를 사용
 - random.choice : 리스트에서 랜덤으로 하나 선택
 
-'''
-
+'''python
 import random
 
 print(random.choice(["피자", "치킨", "햄버거"]))
-
 '''
 
 <br>
@@ -40,7 +38,7 @@ print(random.choice(["피자", "치킨", "햄버거"]))
 
 - 음식 30번 뽑기
 
-'''
+'''python
 import random
 
 for i in range(30):
@@ -55,7 +53,7 @@ print(random.choice(["피자", "치킨", "햄버거"]))
 - 데이터 이름으로 데이터 불러오기
 - 변수를 바꾸기 위해서는 데이터 삭제 안해도 됨
 
-'''
+'''python
 lunch = random.choice(["된장찌개", "피자", "제육볶음"])
 dinner = random.choice(["김밥", "쫄면", "돈까스"])
 
@@ -72,7 +70,7 @@ print(lunch)
 - 여러번 반복
 - 'q'가 입력되면 while문 멈춤
 
-'''
+'''python
 lunch = ["된장찌개", "피자", "제육볶음", "짜장면"]
 
 while True:
@@ -93,7 +91,8 @@ print(lunch)
 - 집합 사용
 - 차집합으로 데이터 삭제
 
-''' #이어서
+''' python
+#이어서
 
 set_lunch = set(lunch)
 while True:
@@ -114,7 +113,8 @@ set_lunch = set_lunch - set([item])
 - random.choice()로 랜덤으로 뽑기
 - time과 random을 사용하기 위해서 import time, random
 
-''' #이어서
+''' python
+#이어서
 
 print(set_lunch, "중에서 선택합니다.")
 
@@ -129,7 +129,7 @@ print(random.choice(list(set_lunch)))
 
 ## 전체 코드
 
-'''
+'''python
 import time
 import random
 
@@ -184,7 +184,7 @@ print(random.choice(list(set_lunch)))
 ### 1. 함수
 
 - 형태
-  '''
+  '''python
   def 함수이름():
   함수가 해야할 내용 1
   함수가 해야할 내용 2
@@ -199,7 +199,7 @@ print(random.choice(list(set_lunch)))
 - 딕셔너리 형태
 - key로 question
 
-'''
+'''python
 total_dictionary = {}
 
 while True:
@@ -219,7 +219,8 @@ print(total_dictionary)
 - 질문을 돌면서 답변 받기
 - for문 사용
 
-''' #이어서
+'''python
+#이어서
 
 for i in total_dictionary:
 print(i)
@@ -235,7 +236,7 @@ total_dictionary[i] = answer
 - key : 질문, 답변 | value : 입력받은 질문, 답변
 - total_list를 접근할 때 i의 key값으로 value 접근
 
-'''
+'''python
 total_list = []
 
 while True:
@@ -257,7 +258,7 @@ print(total_list)
 
 ## 전체 코드
 
-'''
+'''python
 total_list = []
 
 while True:
