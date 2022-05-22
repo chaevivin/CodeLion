@@ -1,0 +1,49 @@
+body {
+    font-family: "Do Hyeon", sans-serif;
+}
+
+ul.list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+ul.list::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.tab-button {
+    display: block;
+    padding: 10px 20px 10px 20px;
+    float: left;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    color: grey;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tab-content {
+    display: none;
+    padding: 10px;
+}
+
+.tab-content img {
+    width: 70%;
+}
+
+.here {
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    border-bottom: 2px solid #ff9e1b;
+    color: black;
+    margin-top: -2px;
+}
+
+.show {
+    display: block;
+}
