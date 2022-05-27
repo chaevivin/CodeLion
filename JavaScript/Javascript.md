@@ -356,3 +356,217 @@ document.getElementById("minus").addEventListener("click",
         document.querySelector('.timeout').style.display = "none";
     }, 7000);
 ```
+
+<br>
+<br>
+<br>
+
+# 자바스크립트 심화
+
+## 타입 변환
+- 자바스크립트는 상황에 따라 자동으로 타입 변환이 됨 
+- 자바스크립트는 데이터 타입을 자기가 맞다고 생각하는대로 변환
+- 그래서 우리는 보다 정확하게 데이터 타입을 넘겨줘야 함
+```js
+console.log("7" * "4");  // 28
+console.log("7" + "4");  // "74"
+console.log("Hello" * "World");  // NaN (Not a Number)
+```
+
+<br>
+<br>
+<br>
+
+## Truthy and Falsy
+- Truthy : True 같은 것
+- Falsy : False 같은 것
+
+### 1. not 연산자
+```js
+!""  // true
+!"hello"  // false
+!undefined  // true
+!null  // true
+!0  // true
+!NaN  // true
+```
+- 빈문자열 = false, 문자열 = true
+
+<br>
+<br>
+<br>
+
+## 함수
+- 수학의 함수와 자바스크립트 함수의 차이점
+    - 입력과 출력이 선택적 (입력만, 출력만, 둘다, 둘다x 가능)
+    - side-effect (부가 기능)이 있어도 된다 
+
+### 1. 화살표 함수 (Arrow-function)
+```javascript
+function add(a, b) {
+    return a + b;
+}
+```
+```js
+const add = (a, b) => {
+    return a + b;
+}
+```
+```js
+const add = (a, b) => a + b;
+```
+
+<br>
+
+### 2. 일급 객체 (First-class citizen)
+- 해당 타입이 변수에 할당될 수 있어야 한다.
+- 해당 타입이 함수의 인자로 넘어갈 수 있어야 한다.
+- 해당 타입이 함수의 반환값으로 반환될 수 있어야 한다.
+- JS의 데이터타입(숫자, 문자열, 불리언, null, undefined) 전부 일급객체
+- 함수 또한 일급객체 ex) addEventListener
+
+<br>
+<br>
+<br>
+
+## 비동기 promise
+
+### 1. 비동기
+- 동기 : 동시에 일어남 -> 요청한 그 자리에서 결과값 반환
+- 비동기 : 동시에 일어나지 않음 -> 요청한 그 자리에서 결과값 반환하지 않아도 됨
+```js
+// 비동기
+fetch("https://jsonplaceholder.typicode.com/posts/1")  // 데이터를 다 받아온 후
+    .then(res => res.json())  // json 형태로 변환 후
+    .then(console.log);  // console에 출력
+```
+
+<br>
+
+### 2. 프로미스 (promise)
+- 비동기 처리 방식
+- 프로미스의 상태
+    - Pending : 프로미스 처리 중
+    - Fulfilled : 프로미스 이행 (정상처리완료)
+    - Rejected : 프로미스 실패 (처리완료, 하지만 비정상적으로)
+- .then(함수)
+
+<br>
+<br>
+<br>
+
+## 논리 연산자 심화
+
+### 1. &&
+- 처음 나오는 falsy 값을 반환한다. 만약 둘 다 truthy라면, 마지막 값을 반환한다.
+```js
+me.militaryState !== undefined && console.log("거짓");  
+// &&를 기준으로 앞이 true이면 console.log 실행
+```
+
+<br>
+
+### 2. ||
+- 처음 나오는 truthy 값을 반환한다. 만약 둘 다 falsy라면, 마지막 값을 반환한다.
+- ||를 기준으로 앞이 true이면 뒤 실행 x
+- ||를 기준으로 앞이 false이면 뒤 실행
+
+<br>
+<br>
+<br>
+
+## 비구조화 할당 (destructuring)
+- 배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 JavaScript 표현식
+- 어떤 객체의 키 값을 새로운 변수로 선언하고 싶을 때 사용
+```js
+const me {
+    name: "정채빈",
+    age: 25,
+};
+
+const name = me.name;
+const age = me.age;
+
+const { name, age } = me;  // 비구조화 할당
+```
+- 배열에서도 사용 가능
+```js
+const a = arr[0];
+const b = arr[1];
+
+const [a, b] = arr;  // 비구조화 할당
+```
+
+<br>
+<br>
+<br>
+
+## 스프레드 (spread)
+- 배열, 문자열, 객체 등 반복 가능한 객체 (Iterable Object)를 개별 요소로 분리할 수 있다.
+- 객체는 객체에서만, 배열은 배열에서만 사용 가능
+```js
+const me = {
+    name: "정채빈",
+    age: 25,
+};
+
+const newMe = {
+    ...me,  // me 객체의 키와 값들을 모두 가지고 옴
+    gender: "female",  
+};
+```
+```js
+const animals = ["강아지", "고양이"];
+const anotherAnimals = [...animals, "햄스터"];  // 강아지, 고양이, 햄스터
+```
+
+<br>
+<br>
+<br>
+
+## 레스트 (나머지)
+- 스프레드의 반대 기능 
+- 뒤에 남는 것들을 받아줌
+```js
+const numbers = [0, 1, 2, 3, 4, 5, 6];
+const [zero, ...rest] = numbers;
+console.log(rest);  // [1, 2, 3, 4, 5, 6]
+```
+
+<br>
+<br>
+<br>
+
+# 나만의 클라이언트 앱 만들기
+
+## 프로젝트 간단 설명
+- 나만의 개발자 유형 테스트 만들기
+- Main > QnA > Result
+- SPA (Single Page Application)
+    - 서버로부터 완전한 페이지를 불러오지 않고 현재 페이지를 동적으로 다시 작성함으로써 사용자와 소통하는 웹 애플리케이션이나 웹 사이트
+
+## 프로젝트 코딩하기
+
+### 1. Main
+- Main_title / Box / Main_image / Main_intro / Main_startBtn
+- 3개 섹션 중 qna, result 부분은 display: none으로 설정
+- bootstrap 사용해서 꾸미기
+```css
+#qna {
+    display: none;
+}
+
+#result {
+    display: none;
+}
+```
+- 버튼을 누르면 다음 페이지로 넘어가기
+```js
+const main = document.querySelector("#main");
+const qna = documnet.querySelector("#qna");
+
+function start() {
+    main.style.display = "none";
+    qna.style.display = "block";
+}
+```
