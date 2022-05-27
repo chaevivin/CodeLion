@@ -1,4 +1,4 @@
-<img width="942" alt="KakaoTalk_20220522_202040221 복사" src="https://user-images.githubusercontent.com/83055813/169692734-c7641655-5757-4c80-ad5d-279adb511afc.png">
+<img width="888" alt="KakaoTalk_20220528_020737224 복사" src="https://user-images.githubusercontent.com/83055813/170751948-9d1f3857-4db1-4fbb-9e5e-2c194a5616d1.png">
 
 <br>
 
@@ -570,3 +570,271 @@ function start() {
     qna.style.display = "block";
 }
 ```
+
+<br>
+
+### 2. QnA
+- QnA_status / QnA_q / QnA_a
+- 각각의 질문과 대답들이 리스트 형태로 
+    - 대답들에는 타입들이 존재
+```js
+const qnaList = [
+    {
+        q: '친구가 쿠키를 만들었다며 나누어준다. 고마움과 동시에 당신은 어떤 생각을 하게 되는가?',
+        a: [
+            {answer: 'a. 어떤 비율과 레시피로 만들었길래 이렇게 맛있지?', type: [0, 1]},
+            {answer: 'b. 쿠키 모양이 너무 예뻐서 못먹겠다', type: [2, 1]},
+            {answer: 'c. 베이킹 사업을 같이 하자고 제안해봐야겠어', type: [0, 3]},
+        ]
+    },
+    {
+        q: 'blahblah',
+        a: [
+            {answer: 'blahblah', type: [1, 2, 3]},
+            {answer: 'blahblah', type: [0]},
+            {answer: 'blahblah', type: [3]},
+        ]
+    },
+    ...
+]
+```
+```html
+<section id="qna">
+    <div class="qBox"></div>
+    <div class="aBox"></div>
+</section>
+```
+```js
+function addAnswer(answerText, qIdx, idx) {
+    var a = document.querySelector('.aBox');
+    var answer = document.createElement('button');
+
+    a.appendChild(answer);
+    answer.innerHTML = answerText;
+
+    answer.addEventListener("click", function(){
+        var children = document.querySelectorAll('.answerList');
+        for (let i = 0; i < children.length; i++) {
+            children[i].disabled = true;  // 버튼 비활성화
+
+            children[i].style.WebkitAnimation = "fadeOut 0.5s";  
+            children[i].style.animation = "fadeOut 0.5s";
+        }
+        setTimeout(() => {
+            for(let i = 0; i < children.length; i++){
+                children[i].style.display = 'none';  // 버튼 사라짐
+            }
+            goNext(++qIdx);
+        }, 450)
+    }, false)
+}
+
+function goNext(qIdx){
+    var q = document.querySelector('.qbox');
+    q.innerHTML = qna(qIdx).q;
+
+    for(let i in qnaList(qIdx).a) {
+        addAnswer(qnaList[qIdx].a[i].answer, qIdx, i);
+    }
+}
+
+function start() {
+    ...
+
+    let qIdx = 0;
+    goNext(qIdx);
+}
+```
+
+<br>
+
+- 상태바 만들기
+```html
+<section id="qna">
+    <!-- 추가 -->
+    <div class="status">  
+        <div class="countStatus"></div>
+        <div class="statusBar"></div>
+    </div>
+
+    <div class="qBox"></div>
+    <div class="aBox"></div>
+</section>
+```
+```js
+const endPoint = 10;
+
+function goNext(qIdx) {
+    ...
+
+    // 진행현황 숫자
+    var countStatusNum = document.querySelector('.countStatus');
+    constStatusNum.innerHTML = (qIdx + 1) + "/" + endPoint;
+
+    // 상태바
+    var status = document.querySelector('.statusBar');
+    status.style.width = (100 / endPoint) * (qIdx + 1) + "%";
+}
+```
+
+<br>
+
+### 3. result
+- 백엔드 : 0, 프론트 : 1, 디자인 : 2, 기획 : 3
+- 숫자가 제일 많은 것이 result
+```js
+const infoList = [
+    {
+        nameIntro: "뒤에서 묵묵히 해낼게!";
+        name: '<백엔드형>',
+        descTitle1: 'blahblah',
+        desc1: 'blablah',
+        descTitle2: 'blahblah',
+        desc2: 'blahblah',
+        resultif: 'blahblah',
+        resultbasic1: 'blahblah',
+        resultbasic2: 'blahblah',
+        resultbasic3: 'blahblah',
+    },
+    {
+        ...
+    },
+    ...
+]
+```
+```js
+const select = [0, 0, 0, 0];  // 선택된 값 계산
+const result = document.querySelector("#result");
+
+function addAnswer(answerText, qIdx, idx) {
+    ...
+
+    setTimeOut(() => {
+        var target = qnaList[qIdx].a[idx].type;
+
+        for(let i = 0; i < target.length; i++){
+            select[target[i]] += 1
+        }
+
+        ...
+    })
+}
+
+function calResult() {
+    var result = select.indexOf(Math.max(...select));
+    return result;
+}
+
+function setResult() {
+    let point = calResult();
+
+    // infoList에서 값 가져오기
+    const resultNameIntro = document.querySelector('.resultIntro');
+    resultNameIntro.innerHTML = infoList(point).nameIntro;
+
+    const resultName = document.querySelector('.resultName');
+    resultName.innerHTML = infoList(point).name;
+
+    var resultImg = document.querySelector('.resultImg');
+    const imgDiv = document.querySelector("#resultImg");
+    var imgURL = "img/image-" + point + ".png";
+
+    resultImg.src = imgURL;
+    resultImg.alt = point;
+    resultImg.classList.add('img-fluid');
+    imgDiv.appendChild(resultImg);
+
+    // 다른 디스크립션도 위와 똑같이 작성
+}
+
+function goResult() {
+    qna.style.WebkitAnimation = 'fadeOut 1s';
+    qna.style.animation = 'fadeOut 1s';
+
+    setTimeOut(() => {
+        result.style.WebkitAnimation = 'fadeIn 1s';
+        result.style.animation = 'fadeIn 1s';
+        setTimeout(() => {
+            qna.style.display = 'none';
+            result.style.display = 'block';
+        }, 450);
+    }, 450);
+
+    setResult();
+}
+
+function goNext(qIdx) {
+    if(qIdx == endPoint) {
+        goResult();
+        return;
+    }
+    ...
+}
+```
+```html
+<section id="result">
+    <h2>나의 결과는?</h2>
+    <div>
+        <div class="resultIntro"></div>
+        <div class="resultName"></div>
+    </div>
+    <div class="resultImg"></div>
+    <div class="resultDesc">
+        <div class="resultDescTitle1"></div>
+        <div class="resultDescTitle2"></div>
+        <div class="resultDesc1"></div>
+    </div>
+</section>
+```
+
+<br>
+<br>
+<br>
+
+# 자바스크립트를 통해 DATA fetch 하는 웹 만들기
+
+## 프로젝트 간단 설명
+- 데이터를 주고 받는 방법
+
+### 1. 데이터 주고받기의 필요성
+- 정적 웹페이지 (정보 전달)는 저장된 정보만 보여주기 때문에 서비스가 한정적
+- 더 많은 정보를 효율적으로 보여주거나 블로그나 메신저를 만들고 싶다면? -> 데이터 주고받기
+- Django 사용 
+    - 웹 브라우저에서 요청 -> 저장되어 있는 정적 파일뿐만 아니라 파이썬으로 짜여진 로직이나 데이터베이스에 저장되어 있는 데이터들을 가공해서 html, css, javascript를 만들어서 웹 브라우저에 전달
+- 프론트엔드 서버에서 백엔드 서버에 데이터 요청 -> 이 방법 사용
+
+<br>
+
+### 2. 데이터 주고받기의 방법
+- 어떤 방식으로 정보를 주고 받을까?
+    - 어떤 원칙을 가지고 프로그램 사이를 연결할 것인가? : API
+    - 프론트엔드와 백엔드 서버 사이에 API 사용
+    - API는 REST 사용
+- REST API는 어떤 원칙을 가지고 있을까?
+    - URI는 정보의 자원을 표현해야 한다
+        - GET/members/delete/1 (x)
+        - DELETE/memebers/1 (o)
+    - 자원에 대한 행위는 HTTP Method (GET, POST, PUT, DELETE)로 표현한다
+        - GET/members/insert/2 (x)
+        - POST/members/2 (o)
+- REST METHOD
+    - POST : POST를 통해 해당 URP를 요청하면 리소스를 생성한다.
+    - GET : GET를 통해 해당 리소스를 조회한다. 리소스를 조회하고 해당 도큐먼트에 대한 자세한 정보를 가져온다.
+    - PUT : PUT를 통해 해당 리소스를 수정한다.
+    - DELETE : DELETE를 통해 리소스를 삭제한다.
+- 정보의 형태는 어떻게 할까? -> XML, JSON
+    - JSON (Javascript Object Notation) : 단순히 data format / 프로그래밍 언어에 독립적
+
+<br>
+
+### 3. 자바스크립트로 REST API 활용
+- Fetch : JS의 내장 라이브러리, IE 지원 X, 일부 기능 부족
+- Axios : 외부 라이브러리 모듈 설치 필요, 크로스 브라우징 가능, Response timeout 처리 등 다양한 기능 존재
+
+<br>
+
+### 4. 영화 API 실습
+- 영화의 목록을 보여주는 웹사이트
+- 정적 사이트라면 데이터를 계속 업데이트 해줘야 함 
+- 백엔드 서버에서 데이터만 최신화
+- TMDB : 영화 외부 API (백엔드 서버)
