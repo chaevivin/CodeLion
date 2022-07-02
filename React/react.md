@@ -548,7 +548,7 @@ export default App;
 <br>
 
 ### 2. 제어 컴포넌트 (Controlled Component)
-- React에서 폼(<input>, <textarea>, <select>)에 발생하는 사용자 입력값을 제어하는 방식
+    - React에서 폼(<input>, <textarea>, <select>)에 발생하는 사용자 입력값을 제어하는 방식
 
 <br>
 <br>
