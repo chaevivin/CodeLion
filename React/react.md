@@ -1,3 +1,7 @@
+![KakaoTalk_20220702_222455214](https://user-images.githubusercontent.com/83055813/177002790-a49f297a-881f-4f1e-9ad2-e3e0e9b693db.png)
+
+<br>
+
 # 리액트 기초
 
 ## 리액트란?
@@ -506,3 +510,567 @@ export default App;
     ```js
     const nameList = names.map((name, index) => <li key={index}>{name}</li>);
     ```
+
+<br>
+
+## useEffect()
+- 리액트 컴포넌트가 렌더링 될 때마다 특정 작업을 실행할 수 있도록 하는 Hook
+- 형태 : useEffect(function, deps)
+    - function : 수행하고자 하는 작업
+    - deps : 검사하고자 하는 값 또는 배열
+- 가장 처음 렌더링 될 때 한번만 실행 : 빈 배열 넣기
+    - useEffect(function, [])
+- 특정 props나 state가 바뀔 때 실행 : 특정 값 넣기
+    - useEffect(function, [바뀌는 값])
+
+<br>
+
+## useMemo()
+- 성능 최적화를 위해 연산된 값을 재사용하게 해주는 Hook
+- 형태 : useMemo(function, deps)
+    - function : 어떤 연산을 할 지 정의하는 함수
+    - deps : 검사하고자 하는 값 또는 배열
+- 특정 값이 바뀌면 함수를 호출하여 연산하고, 값이 바뀌지 않으면 재사용
+    - useMemo(function, [특정값])
+
+<br>
+
+## React에서 form 다루기
+
+### 1. 일반적인 <form>의 방식
+```html
+<form>
+    <input type="text" name="id" />
+</form>
+```
+- input창에 id 값을 입력하면 id = 입력한 id 값
+
+<br>
+
+### 2. 제어 컴포넌트 (Controlled Component)
+- React에서 폼(<input>, <textarea>, <select>)에 발생하는 사용자 입력값을 제어하는 방식
+
+<br>
+<br>
+<br>
+
+# 리액트 라우터
+
+## MPA
+- Multiple Page Application : 여러개의 페이지로 구성된 웹 어플리케이션
+- 사용자가 새로운 페이지를 요청할때마다 서버에서 미리 준비한 화면을 보여줌
+- 단점
+    - 페이지를 이동하거나 새로고침할때 전체 페이지를 다시 렌더링하기 때문에 상태 유지가 어렵고 불필요한 로딩이 발생
+
+<br>
+
+## SPA
+- Single Page Application : 한개의 페이지로 구성된 웹 어플리케이션
+- 페이지 이동 시 기존 페이지를 수정해서 보여줌
+
+<br>
+
+### 1. 라우팅
+- 다른 주소에 다른 화면을 보여주는 것
+
+<br>
+
+### 2. 리액트 라우터
+- 사용방법
+    - 리액트 프로젝트 생성 및 리액트 라우터 라이브러리 설치
+    - 리액트 프로젝트에 라우터 적용하기
+    - 페이지 컴포넌트 만들어주기
+    - Route 컴포넌트로 특정 주소에 컴포넌트 연결하기
+    - Navbar 만들고 Link 컴포넌트로 다른 페이지 이동하기
+    - Navbar를 페이지들의 공통 레이아웃 컴포넌트로 만들기
+    - URL 파라미터 사용하기
+    - 쿼리 스트링 사용하기
+    - 리액트 라우터 부가기능 사용하기
+
+<br>
+
+#### 1. 리액트 프로젝트 생성 및 리액트 라우터 라이브러리 설치
+```
+> yarn create react-app '프로젝트명'
+```
+``` 
+<!-- 프로젝트 파일 안에서 -->
+> npm install react-router-dom@6
+```
+```js
+// index.js
+import { BrowserRouter } from "react-router-dom";
+
+root.render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </React.StrictMode>
+);
+```
+- <App />을 <BrowerRouter>로 감싸줌
+- 라우터를 이용해 특정 주소의 컴포넌트를 연결
+- 페이지들 생성
+    - src > pages 폴더 생성 후 페이지 생성
+    - rsc 입력 (! + tab 과 동일)
+
+<br>
+
+#### 2. 리액트 페이지에 라우터 적용하기
+- Route 사용법
+```jsx
+<Route path="주소규칙" element={보여 줄 컴포넌트}/>
+```
+- App.js 내용 모두 삭제 -> 함수형 컴포넌트 구조로 새로 생성 (rsc)
+```js
+//  App.js
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";  // 생성한 페이지
+import Movies from "./pages/Movies";  // 생성한 페이지
+
+const App = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Home />}></Route>  // localhost:3000
+            <Route path="/movies" element={<Movies />}></Route>  // localhost:3000/movies
+        </Routes>
+    );
+};
+
+export default App;
+```
+
+<br>
+
+#### 3. Navbar 만들고 Link 컴포넌트로 다른 페이지 이동하기
+- pages 폴더에 'Menubar.js" 생성 후 App.js에 컴포넌트 import하고 주소 생성
+- 메뉴바를 누르면 해당 컴포넌트로 이동
+    - 리액트 라우터의 Link 태그 사용 (페이지 전환을 방지하는 기능 탑재)
+- Link 사용법
+```jsx
+<Link to="주소"></Link>
+```
+```js
+// Menubar.js
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Menubar = () => {
+    return (
+        <div>
+            <ul>
+                <li>
+                    <Link to="/home">Home</Link>
+                </li>
+                <li>
+                    <Link to="/movies">Movies</Link>
+                </li>
+            </ul>
+        </div>
+    );
+};
+
+export default Menubar;
+```
+
+<br>
+
+#### 4. Navbar를 페이지들의 공통 레이아웃 컴포넌트로 만들기
+- 라우터의 중첩 경로 이용
+```js
+// App.js
+const App = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Menubar />}>  // 중첩 경로 
+                <Route path="/home" element={<Home />}></Route>
+                <Route path="/movies" element={<Movies />}></Route>  
+            </Route>
+        </Routes>
+    );
+};
+```
+- 위 처럼 하면 상위, 하위 경로 모두 상위 요소만 보이게 됨 -> 아울렛이라는 컴포넌트 사용해서 해결
+```js
+// Menubar.js
+import { Link, Outlet } from "react-router-dom";
+
+const Menubar = () => {
+    return (
+        <div>
+            <ul>
+                <li>
+                    <Link to="/home">Home</Link>
+                </li>
+                <li>
+                    <Link to="/movies">Movies</Link>
+                </li>
+            </ul>
+
+            <Outlet />
+        </div>
+    );
+};
+```
+
+<br>
+
+#### 5. 페이지 주소 정의
+- URL 파리미터 예시 : /movies/1
+    - 특정 아이디, 이름을 사용하여 조회할 때 사용
+- 쿼리스트링 예시 : /movies/1?detail=true
+    - 키워드 검색, 페이지네이션, 옵션 전달
+
+<br>
+
+#### 6. URL 파라미터 사용하기
+- src > movie_data.js 데이터 파일 생성
+- 만들어준 영화 데이터들을 movies 컴포넌트 안에 map 함수를 사용하여 보여줌
+- src > Movie.js 파일 생성 (rsc)
+```js
+// App.js
+import Movie from "./pages/Miovie";
+
+const App = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Menubar />}>  
+                <Route path="/home" element={<Home />}></Route>
+                <Route path="/movies" element={<Movies />}>
+                    <Route path=":movieId" element={<Movie />}>  
+                </Route>  
+            </Route>
+        </Routes>
+    );
+};
+```
+```js
+// movie_data.js
+let movies = [
+    {
+        id: 1,
+        title: "하울의 움직이는 성",
+        director: "미야자키 하야오",
+        category: "일본 애니메이션",
+        detail:
+            "어느 날, 영문도 모른 채 마녀의 저주로 인해 할머니가 된 소녀 '소피' 절망 속에서 길을 걷다가 거대한 마법의 성에 들어가게 된다. 그곳에서 자신과 마법사 하울의 계약을 깨주면 저주를 풀어주겠다는 불꽃악마 캘시퍼의 제안을 받고 청소부가 되어 ‘움직이는 성’에 머물게 되는데…"
+    },
+    {
+        id: 2,
+        title: "보스 베이비2",
+        director: "톰 맥그라스",
+        category: "미국 애니메이션",
+        detail:
+            "베이비 주식회사의 레전드 보스 베이비에서 인생 만렙 CEO가 된 ‘테드’. 베이비인 줄 알았던 조카 ‘티나’가 알고 보니 베이비 주식회사 소속 임원으로 밝혀진다. 뉴 보스 베이비 ‘티나’의 지시로 다시 베이비로 돌아간 ‘테드’와 형 ‘팀’에게 주어진 시간은 48시간! 세상을 구하기 위한 미션을 무사히 완수할 수 있을 것인가?"
+    },
+
+    ...
+];
+
+// 전체 영화 목록이 반환되게 하는 함수
+export function getMovies() {  
+    return movies;
+}
+
+// id로 하나의 영화 정보만 가져오게 하는 함수
+export function getMovie(id) {
+    return movies.find((movie) => movie.id === id);
+}
+```
+```js
+// Movies.js
+import React from "react";
+import { getMovies } from "../movie_data";
+import { Link, Outlet } from "react-router-dom";
+
+const moives = () => {
+    const movies = getMovies();  // movies 안에 영화 목록 저장
+
+    return (
+        <div>
+            <h1>넷플릭스 영화 추천 목록</h1>
+            <div>
+                {movies.map((movie) => (
+                    <Link 
+                    to={`/movies/${movie.id}`}
+                    key={movie.id}
+                    style={{display: "block"}}>
+                        <p>{movie.title}</p>
+                    </Link>
+                ))}
+            </div>
+            <hr />
+            <Outlet />
+        </div>
+    );
+};
+
+export default movies;
+```
+- 영화 제목을 클릭하면 상세페이지로 이동
+- url 파라미터는 use params 사용해 객체 형태로 조회 가능
+```js
+// Movie.js
+import React from "react";
+import { useParams } from "react-router-dom";
+import { getMovie } from "../movie_data";
+
+const Movie = () => {
+    // url 파라미터 사용하기
+    const params = useParams();
+    const movie = getMovie(parseInt(params.movieId));  // 문쟈형태이기 때문에 숫자로 변환
+
+    return (
+        <div>
+            <h2>{movie.title}</h2>
+            <p>감독 : {movie.director}</p>
+            <p>카테고리 : {movie.category}</p>
+        </div>
+    );
+};
+
+export default Movie
+```
+
+<br>
+
+#### 7. 쿼리 스트링 사용하기
+- 페이지 정보를 알기 위해 useLocation 사용
+- 쿼리 스트링은 라우터 컴포넌트를 별도로 설정하지 않아도 됨
+- 쿼리 스트링은 useLocation의 search 값을 통해 조회 가능
+- 조회한 쿼리 스트링을 파싱하여 자세히 버튼을 눌렀을 때 detail 값 true로, 한번 더 누르면 false 값으로
+    - 쿼리 스트링을 파싱할 때는 'useSearchParams' 사용
+    - useSearchParams의 get 메서드는 쿼리 파라미터 조회
+    - useSearchParams의 set 메서드는 특정 쿼리 파라미터를 업데이트
+```js
+//  Movie.js
+import { useParams, useLocation, useSearchParams } from "react-router-dom";
+...
+
+const Movie = () => {
+    ...
+
+    // 쿼리 스트링 사용하기
+    const location = useLocation();  
+    console.log(location);  // pathname, search, hash, state, key 값 출력
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    console.log(searchParmas.get("detail"));  // true
+    const detail = searchParams.get("detail");
+
+    // 클릭 이벤트 발생했을 때 true -> false, false -> true
+    const handleClick = () => {
+        setSearchParams({detail: detail === "true" ? false: true});
+    }
+
+    return (
+        <div>
+            <h2>{movie.title}</h2>
+            <p>감독 : {movie.director}</p>
+            <p>카테고리 : {movie.category}</p>
+            <button type="button" onClick={handleClick}>자세히</button>
+            {detail === "true" ? <p>{movie.detail}</p> : " "}  // detail의 true는 문자열
+        </div>
+    );
+};
+```
+
+<br>
+
+#### 8. NotFound 페이지 만들기
+```js
+// App.js
+const App = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Menubar />}>  
+                <Route path="/home" element={<Home />}></Route>
+                <Route path="/movies" element={<Movies />}>
+                    <Route path=":movieId" element={<Movie />}>  
+                </Route>
+                <Route path="*" element={<div>There's nothing here!</div>} />  // NotFound
+            </Route>
+        </Routes>
+    );
+};
+```
+
+<br>
+
+#### 9. Navigate 컴포넌트
+- 페이지 이동할 때 사용
+- 홈으로 돌아가는 버튼
+```js
+// Menubar.js
+import { Link, Outlet, useNavigate } from "react-router-dom";
+
+const Menubar = () => {
+    // 홈으로 돌아가기 버튼 누를 때
+    const navigate = useNavigate();
+    const goHome = () => {
+        navigate("/");
+    };
+
+    return (
+        <div>
+            <ul>
+                <li>
+                    <Link to="/home">Home</Link>
+                </li>
+                <li>
+                    <Link to="/movies">Movies</Link>
+                </li>
+            </ul>
+
+            <Outlet />
+
+            <button type="button" onClick={goHome}>홈으로 돌아가기</button>
+        </div>
+    );
+};
+```
+
+<br>
+
+#### 10. NavLink
+- Link 대신 NavLink를 사용하면 Link에서 사용하는 경로가 현재 라우터의 경로와 일치하는 경우 특정 css를 적용할 수 있음
+- 선택된 리스트에 스타일 적용
+```js
+// Movies.js
+import { NavLink, Link, Outlet } from "react-router-dom";
+
+...
+
+return (
+    ...
+    // Link -> NavLink
+    <NavLink
+    to={`/movies/${movie.id}`}
+    key={movie.id}
+    style={({isActive}) => {
+        return {
+            textDecoration: isActive ? "underline" : "",
+            color: isActive ? "#FF9E1B" : "",
+        };
+    }}>
+        <p>{movie.title}</p>     
+    </NavLink>
+)
+```
+
+<br>
+<br>
+<br>
+
+# virtual DOM, useRef, useCallback, React.memo
+
+## virtual DOM
+- 기존의 DOM이 웹 화면을 보여주는 방식
+    - DOM tree 생성 : HTML을 파싱하여 DOM 노드로 이뤄진 트리 생성
+    - Render tree 생성 : CSS를 파싱하여 CSSOM 생성 / DOM + CSSOM = Render tree
+    - Layout : Render tree 노드들의 위치 결정
+    - Paint : 그려서 보여주기
+- 기존 DOM의 문제
+    - 변화가 생길때마다, 다시 tree를 전부 생성
+    - spa를 많이 사용함에 따라 효율적인 DOM 변화의 필요성이 부각 
+- virtual DOM 
+    - Real DOM의 추상화 버전
+    - 비슷한 역할을 하지만 다른 사용방법
+    - State가 change되는 상태일 때는 change를 반영하지 않음
+    - Diff 알고리즘을 통해서 어떤 부분이 달라졌는 지 확인
+    - 전과 비교해서 달라진 부분만 바꿔서 Re-render
+
+<br>
+
+### 1. Virtual DOM의 동작 방식
+- Props를 변화시키거나 setState를 사용하여 변화시키는 경우
+    - component는 re-render
+- 메모리에서 변화 부분 감지 -> 달라진 부분 적용
+
+<br>
+
+## useRef
+- Real DOM을 조작할 때 사용했던 getElementById, getElementByClassName 등은 useRef로 사용
+    - Real DOM 생성 시에 class name, id 등을 확실히 가져올 보장이 없기 때문에
+    - 해당 컴포넌트 안에서만 조작이 가능하여 data flow가 단방향 유지하기 어려움
+    - virtual dom에서 조작하고 결과물만 real dom으로 => useRef
+
+### 1. useRef 사용법
+- useRef import
+```js
+import React, { useState, useRef, useEffect } from "react";
+```
+- useRef 할당
+```js
+function InputPost({ onChange, title, contents }) {
+    const titleInput = useRef();
+    const contentInput = useRef();
+}
+```
+- useRef 연결
+```js
+<TitleInput 
+    ...
+    ref={titleInput}/>
+```
+- useRef 사용
+```js
+const onKeyUp = (e) => {
+    if (e.key === "Enter") {
+        contentsInput.current.focus();
+    }
+};
+
+useEffect(() => {
+    titleInput.current.focus();
+}, []);
+```
+
+<br>
+
+## useCallback
+- 최적화
+- 컴포넌트가 리랜더될 때마다 컴포넌트의 함수가 재생성된다
+- useCallback은 어떤 부분을 미리 memorize해서 필요할 때 꺼내쓴다
+- 연산이 오래 걸리고 복잡한 함수일수록 해당 과정이 더욱 효율적
+
+### 1. useCallback 사용법
+- useCallback import
+```js
+import React, { useState, useEffect, useCallback } from 'react';
+```
+- 해당 함수를 useCallback 함수로 감싸기
+```js
+const addPost = useCallback(() => {
+    setPostList((postList) => [
+        ...postList,
+        { id: 4, title: "학보, 시사n 대학기자상 취재" },
+    ]);
+}, [postList]);
+```
+- [postList] : Deps(dependency array)에 있는 부분이 바뀌면 다시 만들기
+
+<br>
+
+## React.memo
+- Props가 안 바뀌어도, setState로 변화가 일어나지 않아도 상위 컴포넌트가 re-render 되면 재귀적으로 re-render되는 경우가 있음
+- 컴포넌트를 memorize 해놨다가 정말 필요한 상황에서만 re-render => React.memo
+
+### 1. React.memo 사용법
+- React.memo import
+```js
+import React, { useState, useEffect, useCallback } from "react";
+```
+- 기존 컴포넌트를 react.memo로 감싸거나 export 부분을 react.memo로 감싸기
+```js
+// 둘 중 하나 택 1
+const SubmitComponent : React.memo{() => (
+    <PostSubmitDiv>
+        <postSubmit>작성완료</postSubmit>
+    </PostSubmitDiv>
+)};
+
+export default React.memo(WriteTitle);
+```
